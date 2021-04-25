@@ -11,6 +11,7 @@ public class CoordinateLabler : MonoBehaviour
 {
     [SerializeField] Color defaultColor = Color.white;
     [SerializeField] Color blockedColor = Color.blue;
+    [SerializeField] int unityGridSize = 10;
 
     TextMeshPro lable;
     Vector2Int coordinates = new Vector2Int();
@@ -21,6 +22,11 @@ public class CoordinateLabler : MonoBehaviour
         lable = GetComponent<TextMeshPro>();
         waypoint = GetComponentInParent<Waypoint>();
         DisplayCoordinates();  
+    }
+
+    private void Start()
+    {
+        lable.enabled = false;
     }
     void Update()
     {
@@ -51,8 +57,8 @@ public class CoordinateLabler : MonoBehaviour
 
     void DisplayCoordinates()
     {
-        coordinates.x = Mathf.RoundToInt(transform.parent.position.x/UnityEditor.EditorSnapSettings.move.x);
-        coordinates.y = Mathf.RoundToInt(transform.parent.position.z/UnityEditor.EditorSnapSettings.move.z);
+        coordinates.x = Mathf.RoundToInt(transform.parent.position.x/unityGridSize);
+        coordinates.y = Mathf.RoundToInt(transform.parent.position.z/unityGridSize);
         lable.text = coordinates.x + "," + coordinates.y;
     }
 
